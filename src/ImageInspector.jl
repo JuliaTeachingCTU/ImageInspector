@@ -1,6 +1,7 @@
 module ImageInspector
 
 using Colors
+using Requires
 
 export image, imagegrid
 
@@ -88,6 +89,10 @@ function imagegrid(x, inds; sep = 1, kwargs...)
         A[rows, cols] = imgs[k]
     end
     return A
+end
+
+function __init__()
+    @require Plots="91a5bcdd-55d7-5caf-9e0b-520d859cae80" include("imageplot.jl")
 end
 
 end

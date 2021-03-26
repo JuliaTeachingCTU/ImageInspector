@@ -23,3 +23,7 @@ plot(
 # imagegrid
 xs = MNIST.traintensor(1:10);
 plot(imagegrid(xs, 1:10; nrows = 2, sep = 2); axis = nothing, border = :none)
+
+# imageplot
+x = CIFAR10.traintensor(1:10);
+imageplot(x, 1:10; nrows = 2, sep = 1)
