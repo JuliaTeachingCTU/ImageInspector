@@ -1,4 +1,3 @@
-using Revise # importantly, this must come before `using ImageInspector`
 using ImageInspector, MLDatasets, Plots
 
 # gray images
