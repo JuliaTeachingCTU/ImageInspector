@@ -7,3 +7,44 @@
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/JuliaTeachingCTU/ImageInspector.jl/blob/master/LICENSE)
 [![Lectures](https://img.shields.io/badge/docs-stable-blue.svg)](http://bit.ly/JuliaML)
+
+ImageInspector provides simple utilities to visualize image data used in machine learning.
+
+## Instalation
+
+The package is not registered and this can be installed in the following way
+
+```julia
+(@v1.5) pkg> add https://github.com/JuliaTeachingCTU/ImageInspector.jl
+```
+
+## Usage
+
+The main goal of the package is to simplify the process of examining image data stored as a 3D or 4D array of numbers. This format is commonly used in machine learning, for example for training neural networks. The package consider the following assumptions about input data:
+
+- Images are stored in the Flux style, i.e., each slice alongside the last dimension (the third or the fourth dimension) represents one image.
+- Each image is stored in the **width x height** or  **width x height x color channel** format.
+
+The core of the package is the `imageplot` function that can be used to visualize one or multiple images. The basic usage is the following.
+
+```julia
+using ImageInspector, Plots, MLDatasets
+
+x = CIFAR10.traintensor();
+imageplot(x, 1:10)
+```
+
+<p align="center">
+  <img src="assets/cifar.svg?raw=true">
+</p>
+
+The `imageplot` function provides several keyword arguments, that allow us to modify the resulting appearance of the image.  For example, the number of rows and columns of the resulting grid can be set by the `nrows` and `ncols` keyword arguments.
+
+```julia
+inds = [2, 4, 8, 16, 32, 64, 128, 256, 512, 1024]
+imageplot(x, inds; nrows = 2)
+```
+
+<p align="center">
+  <img src="assets/cifar_21.svg?raw=true">
+</p>
