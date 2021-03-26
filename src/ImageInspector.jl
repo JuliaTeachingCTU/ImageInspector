@@ -49,8 +49,10 @@ function image(x::AbstractArray{T,3}; flip = true) where {T <: Real}
     end
 end
 
-image(x::ImArray, inds) = [image(selectdim(x, ndims(x), i)) for i in inds]
-image(x::ImArray, ind::Int) = image(x, [ind])[1]
+function image(x::ImArray, inds; flip = true)
+    return [image(selectdim(x, ndims(x), i); flip) for i in inds]
+end
+image(x::ImArray, ind::Int; flip = true) = image(x, [ind]; flip)[1]
 
 function gridsize(n::Int; nrows::Int = -1, ncols::Int = - 1)
     if nrows < 1
@@ -66,10 +68,10 @@ function gridsize(n::Int; nrows::Int = -1, ncols::Int = - 1)
     return nrows, ncols
 end
 
-imagegrid(x, ind::Int; kwargs...) = image(x, ind)
+imagegrid(x, ind::Int; flip = true, kwargs...) = image(x, ind; flip)
 
-function imagegrid(x, inds; sep = 1, kwargs...)
-    imgs = image(x, inds)
+function imagegrid(x, inds; flip = true, sep = 1, kwargs...)
+    imgs = image(x, inds; flip)
     n = length(imgs)
     nrows, ncols = gridsize(n; kwargs...)
 
