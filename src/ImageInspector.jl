@@ -34,4 +34,16 @@ function image(x::AbstractMatrix{T}; flip = true) where {T <: Real}
     return Gray.(xx)
 end
 
+function image(x::AbstractArray{T,3}; flip = true) where {T <: Real}
+    s = size(x, 3)
+    if s == 1
+        return image(dropdims(x; dims = 3); flip)
+    elseif s == 3
+        xx = flip ? PermutedDimsArray(x, (2, 1, 3)) : x
+        return RGB.(eachslice(xx; dims= 3)...)
+    else
+        throw(ArgumentError("unsupported size of the third dimension $(s) ∉ [1,3]."))
+    end
+end
+
 end
