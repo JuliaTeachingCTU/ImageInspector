@@ -1,0 +1,7 @@
+name = "ImageInspector"
+uuid = "b0ce21f1-0238-464b-b95f-8a4068743199"
+authors = ["Václav Mácha"]
+version = "0.1.0"
+
+[compat]
+julia = "1.5"
