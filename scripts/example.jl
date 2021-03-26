@@ -20,6 +20,6 @@ plot(
     border = :none
 )
 
-# array of images
+# imagegrid
 xs = MNIST.traintensor(1:10);
-plot(plot.(image(xs, [1,2]))...; axis = nothing, border = :none)
+plot(imagegrid(xs, 1:10; nrows = 2, sep = 2); axis = nothing, border = :none)
