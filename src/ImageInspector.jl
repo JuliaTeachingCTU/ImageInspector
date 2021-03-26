@@ -1,5 +1,9 @@
 module ImageInspector
 
-# Write your package code here.
+using Colors
+
+export image
+
+image(x::AbstractMatrix{<:Real}) = Gray.(x)
 
 end
