@@ -19,3 +19,7 @@ plot(
     axis = nothing,
     border = :none
 )
+
+# array of images
+xs = MNIST.traintensor(1:10);
+plot(plot.(image(xs, [1,2]))...; axis = nothing, border = :none)

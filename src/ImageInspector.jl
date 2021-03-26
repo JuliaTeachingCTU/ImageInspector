@@ -4,6 +4,8 @@ using Colors
 
 export image
 
+const ImArray{T<:Real} = Union{AbstractArray{T,3}, AbstractArray{T,4}}
+
 """
     image(x::AbstractMatrix{T}; flip = true)
 
@@ -45,5 +47,8 @@ function image(x::AbstractArray{T,3}; flip = true) where {T <: Real}
         throw(ArgumentError("unsupported size of the third dimension $(s) ∉ [1,3]."))
     end
 end
+
+image(x::ImArray, inds) = [image(selectdim(x, ndims(x), i)) for i in inds]
+image(x::ImArray, ind::Int) = image(x, [ind])[1]
 
 end
