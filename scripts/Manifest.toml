@@ -254,9 +254,7 @@ version = "0.9.5"
 
 [[ImageInspector]]
 deps = ["Colors", "Requires"]
-git-tree-sha1 = "e420fb3dc2db1ab65bb8cfaa34eb81d9917483dd"
-repo-rev = "master"
-repo-url = ".."
+path = ".."
 uuid = "b0ce21f1-0238-464b-b95f-8a4068743199"
 version = "0.1.0"
 
