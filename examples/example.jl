@@ -1,28 +1,29 @@
 using ImageInspector, MLDatasets, Plots
 
+X1 = MLDatasets.FashionMNIST(Float64, :train)[:][1];
+X2 = MLDatasets.CIFAR10(Float64, :train)[:][1];
+
+x1 = selectdim(X1, ndims(X1), 1)
+x2 = selectdim(X2, ndims(X2), 1)
+
 # gray images
-x = FashionMNIST.traintensor(1);
 plot(
-    plot(image(x; flip = true); title = "flip = true"),
-    plot(image(x; flip = false); title = "flip = false");
-    axis = nothing,
-    border = :none,
+    plot(image(x1; flip=true); title="flip = true"),
+    plot(image(x1; flip=false); title="flip = false");
+    axis=nothing,
+    border=:none
 )
 
 # color images
-x1 = FashionMNIST.traintensor(1);
-x2 = CIFAR10.traintensor(2);
 plot(
     plot(image(x1)),
     plot(image(x2));
-    axis = nothing,
-    border = :none
+    axis=nothing,
+    border=:none
 )
 
 # imagegrid
-xs = FashionMNIST.traintensor(1:10);
-plot(imagegrid(xs, 1:10; nrows = 2, sep = 2); axis = nothing, border = :none)
+plot(imagegrid(X1, 1:10; nrows=2, sep=2); axis=nothing, border=:none)
 
 # imageplot
-x = CIFAR10.traintensor(1:10);
-imageplot(x, 1:10; nrows = 2, sep = 1)
+imageplot(X2, 1:10; nrows=2, sep=1)
