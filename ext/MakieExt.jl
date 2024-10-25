@@ -1,7 +1,8 @@
-module ImagePlot
+module MakieExt
 
-using Plots
-using ImageInspector
+import CairoMakie
+import ImageInspector
+using ImageInspector.Colors
 
 function ImageInspector.imageplot(x, ind; flip=true, nrows=-1, ncols=-1, sep=1, kwargs...)
     img = imagegrid(x, ind; flip, nrows, ncols, sep)
@@ -15,12 +16,16 @@ end
 
 function ImageInspector.imageplot(
     x::AbstractMatrix{<:Color};
-    legend=false,
-    axis=nothing,
-    border=:none,
     kwargs...
 )
-    return plot(x; legend, axis, border, kwargs...)
+
+    f = Figure()
+    CairoMakie.image(
+        f[1, 1],
+        x,
+        axis=(title="Default",)
+    )
+    return f
 end
 
 end
