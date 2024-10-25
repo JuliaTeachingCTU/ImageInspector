@@ -7,6 +7,7 @@
 
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://github.com/JuliaTeachingCTU/ImageInspector.jl/blob/master/LICENSE)
 [![Lectures](https://img.shields.io/badge/docs-stable-blue.svg)](http://bit.ly/JuliaML)
+[![Aqua](https://raw.githubusercontent.com/JuliaTesting/Aqua.jl/master/badge.svg)](https://github.com/JuliaTesting/Aqua.jl)
 
 ImageInspector provides simple utilities to visualize image data used in machine learning.
 
@@ -15,7 +16,7 @@ ImageInspector provides simple utilities to visualize image data used in machine
 The package is not registered and this can be installed in the following way
 
 ```julia
-(@v1.5) pkg> add https://github.com/JuliaTeachingCTU/ImageInspector.jl
+(@v1.10) pkg> add https://github.com/JuliaTeachingCTU/ImageInspector.jl
 ```
 
 ## Usage
