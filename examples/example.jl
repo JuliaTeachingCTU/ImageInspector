@@ -1,4 +1,5 @@
-using ImageInspector, MLDatasets, Plots
+using MLDatasets, Plots
+using ImageInspector
 
 X1 = MLDatasets.FashionMNIST(Float64, :train)[:][1];
 X2 = MLDatasets.CIFAR10(Float64, :train)[:][1];

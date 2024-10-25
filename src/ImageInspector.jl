@@ -1,11 +1,10 @@
 module ImageInspector
 
 using Colors
-using Requires
 
-export image, imagegrid
+export image, imagegrid, imageplot
 
-const ImArray{T<:Real} = Union{AbstractArray{T,3}, AbstractArray{T,4}}
+const ImArray{T<:Real} = Union{AbstractArray{T,3},AbstractArray{T,4}}
 
 """
     image(x::AbstractMatrix{T}; flip = true)
@@ -32,29 +31,29 @@ julia> image(x; flip = false)
  Gray{Float64}(0.4)  Gray{Float64}(0.6)
 ```
 """
-function image(x::AbstractMatrix{T}; flip = true) where {T <: Real}
+function image(x::AbstractMatrix{T}; flip=true) where {T<:Real}
     xx = flip ? PermutedDimsArray(x, (2, 1)) : x
     return Gray.(xx)
 end
 
-function image(x::AbstractArray{T,3}; flip = true) where {T <: Real}
+function image(x::AbstractArray{T,3}; flip=true) where {T<:Real}
     s = size(x, 3)
     if s == 1
-        return image(dropdims(x; dims = 3); flip)
+        return image(dropdims(x; dims=3); flip)
     elseif s == 3
         xx = flip ? PermutedDimsArray(x, (2, 1, 3)) : x
-        return RGB.(eachslice(xx; dims= 3)...)
+        return RGB.(eachslice(xx; dims=3)...)
     else
         throw(ArgumentError("unsupported size of the third dimension $(s) ∉ [1,3]."))
     end
 end
 
-function image(x::ImArray, inds; flip = true)
+function image(x::ImArray, inds; flip=true)
     return [image(selectdim(x, ndims(x), i); flip) for i in inds]
 end
-image(x::ImArray, ind::Int; flip = true) = image(x, [ind]; flip)[1]
+image(x::ImArray, ind::Int; flip=true) = image(x, [ind]; flip)[1]
 
-function gridsize(n::Int; nrows::Int = -1, ncols::Int = - 1)
+function gridsize(n::Int; nrows::Int=-1, ncols::Int=-1)
     if nrows < 1
         if ncols < 1
             nrows = round(Int, sqrt(n))
@@ -68,9 +67,9 @@ function gridsize(n::Int; nrows::Int = -1, ncols::Int = - 1)
     return nrows, ncols
 end
 
-imagegrid(x, ind::Int; flip = true, kwargs...) = image(x, ind; flip)
+imagegrid(x, ind::Int; flip=true, kwargs...) = image(x, ind; flip)
 
-function imagegrid(x, inds; flip = true, sep = 1, kwargs...)
+function imagegrid(x, inds; flip=true, sep=1, kwargs...)
     imgs = image(x, inds; flip)
     n = length(imgs)
     nrows, ncols = gridsize(n; kwargs...)
@@ -78,23 +77,21 @@ function imagegrid(x, inds; flip = true, sep = 1, kwargs...)
     h, w = size(imgs[1])
     A = fill(
         eltype(imgs[1])(1), # white color in proper color type
-        nrows*h + (nrows + 1)*sep, # height of the reculting image
-        ncols*w + (ncols + 1)*sep, # width of the reculting image
+        nrows * h + (nrows + 1) * sep, # height of the reculting image
+        ncols * w + (ncols + 1) * sep, # width of the reculting image
     )
 
     for i in 1:nrows, j in 1:ncols
         k = j + (i - 1) * ncols
         k > n && break
 
-        rows = (1:h) .+ (i - 1)*h .+ i*sep
-        cols = (1:w) .+ (j - 1)*w .+ j*sep
+        rows = (1:h) .+ (i - 1) * h .+ i * sep
+        cols = (1:w) .+ (j - 1) * w .+ j * sep
         A[rows, cols] = imgs[k]
     end
     return A
 end
 
-function __init__()
-    @require Plots="91a5bcdd-55d7-5caf-9e0b-520d859cae80" include("imageplot.jl")
-end
+function imageplot end
 
 end
