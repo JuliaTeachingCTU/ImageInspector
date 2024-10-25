@@ -1,6 +1,6 @@
 module PlotsExt
 
-using Plots
+import Plots
 using ImageInspector
 using ImageInspector.Colors
 

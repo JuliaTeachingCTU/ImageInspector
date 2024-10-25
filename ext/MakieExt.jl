@@ -1,7 +1,7 @@
 module MakieExt
 
 import CairoMakie
-import ImageInspector
+using ImageInspector
 using ImageInspector.Colors
 
 function ImageInspector.imageplot(x, ind; flip=true, nrows=-1, ncols=-1, sep=1, kwargs...)
@@ -14,17 +14,11 @@ function ImageInspector.imageplot(x; flip=true, kwargs...)
     return imageplot(img; kwargs...)
 end
 
-function ImageInspector.imageplot(
-    x::AbstractMatrix{<:Color};
-    kwargs...
-)
+function ImageInspector.imageplot(x::AbstractMatrix{<:Color}; kwargs...)
 
-    f = Figure()
-    CairoMakie.image(
-        f[1, 1],
-        x,
-        axis=(title="Default",)
-    )
+    f, ax = CairoMakie.image(reverse(x'; dims=2); kwargs...)
+    CairoMakie.hidedecorations!(ax)
+    CairoMakie.hidespines!(ax)
     return f
 end
 
